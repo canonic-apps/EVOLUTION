@@ -47,7 +47,7 @@ EVOLUTION is a system app that crawls the CANONVERSE transcripts and generates c
 ## Platform Architecture
 
 ```
-canonic-machine/     ← Governance kernel (YOU ARE HERE)
+canonic-foundation/     ← Governance kernel (YOU ARE HERE)
 ├── EVOLUTION/       ← This system app
 ├── LANGUAGE/
 ├── VALIDATORS/
@@ -81,7 +81,7 @@ evolution platform --output PLATFORM.md
 
 - [CANON.md](CANON.md) — Governance axioms
 - [VOCAB.md](VOCAB.md) — Term definitions
-- [canonic-machine/LEDGER](https://github.com/canonic-machine/LEDGER) — Genesis
+- [canonic-foundation/LEDGER](https://github.com/canonic-foundation/LEDGER) — Genesis
 - [iDrDex/GenomicPython](https://github.com/iDrDex/GenomicPython) — Proto-CANONIC seed
 
 ---

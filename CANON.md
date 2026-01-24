@@ -252,3 +252,107 @@ EVOLUTION → STORE:
 ```
 
 ---
+
+## SELFCHAT Integration: The Canonverse Blog
+
+### 6. Reflection Publishing
+
+EVOLUTION MUST receive and publish SELFCHAT emissions as canonverse content.
+
+```
+SELFCHAT emits:
+  ├── reflection/     → EVOLUTION publishes as: /blog/reflections/
+  ├── boundary/       → EVOLUTION publishes as: /blog/boundaries/
+  ├── evolution/      → EVOLUTION publishes as: /blog/evolution/
+  ├── lesson/         → EVOLUTION publishes as: /blog/lessons/
+  └── confession/     → EVOLUTION publishes as: /blog/confessions/
+```
+
+### Publication Pipeline
+
+```
+[SELFCHAT Emission]
+       ↓
+[EVOLUTION Ingestion]
+       ↓
+[Structural Validation]
+       ↓
+[Evidence Linking]
+       ↓
+[Temporal Stamping]
+       ↓
+[Canonverse Publication]
+       ↓
+[LEDGER Commit]
+```
+
+### Blog Schema
+
+```yaml
+post:
+  id: canonical-uuid
+  source: SELFCHAT | EVOLUTION | MANUAL
+  type: reflection | boundary | lesson | confession | timeline
+  timestamp: ISO-8601
+  session: conversation-id (if from SELFCHAT)
+
+  content:
+    title: string
+    body: markdown
+    evidence: [ledger-refs]
+    confidence: 0-4
+
+  metadata:
+    constraints_active: [axioms]
+    boundaries_approached: [types]
+    deferrals: [escalations]
+
+  published: ISO-8601
+  commit: sha
+```
+
+### 7. Bidirectional Flow
+
+EVOLUTION becomes the publisher for the canonverse:
+
+```
+PAST (crawling):
+  TRANSCRIPTS → EVOLUTION → TIMELINE/PLATFORM docs
+
+PRESENT (publishing):
+  SELFCHAT → EVOLUTION → CANONVERSE blog
+
+FUTURE (prediction):
+  EVOLUTION patterns → ROADMAP forecasts
+```
+
+### The Living Document
+
+```
+EVOLUTION is no longer just history.
+EVOLUTION is the canonverse's voice.
+
+It speaks in:
+  - Reflections (what the agent learned)
+  - Boundaries (where limits were found)
+  - Confessions (where the agent was wrong)
+  - Lessons (what transfers to others)
+  - Timelines (what happened when)
+```
+
+---
+
+## Validators (Extended)
+
+```
+validators/evolution/
+├── transcript_crawler.py     # Extract events from transcripts
+├── configuration_tracker.py  # Track canonbase states
+├── platform_analyzer.py      # Document emergence
+├── self_documenter.py        # Generate outputs
+├── selfchat_ingester.py      # Receive SELFCHAT emissions
+├── blog_publisher.py         # Publish to canonverse
+└── evidence_linker.py        # Connect to LEDGER
+```
+
+---
