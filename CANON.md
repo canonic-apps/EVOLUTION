@@ -6,112 +6,84 @@ inherits: /CANONIC/
 
 ## Axiom
 
-**EVOLUTION = LEDGER walker. Continuously rebuilds from transcripts.**
+**EVOLUTION = LEDGER walker. Integrates COVERAGE + ROADMAP.**
+
+---
+
+## Level
+
+**ENTERPRISE** — System app. Required for compliance.
 
 ---
 
 ## Core Loop
 
 ```
-while true:
-    WALK(LEDGER)
-    EXTRACT(TRANSCRIPTS)
-    REBUILD(SELF)
+WALK(LEDGER) → UPDATE(COVERAGE) → UPDATE(ROADMAP)
 ```
 
 ---
 
-## Axioms
+## Function
 
-### 1. LEDGER is Source
+EVOLUTION walks the LEDGER (git) and:
 
-EVOLUTION reads from LEDGER (git). Nothing else. The commit history IS the evidence chain.
-
-```
-LEDGER = git log
-EVIDENCE = commits + diffs + messages
-TRUTH = what got committed
-```
-
-### 2. Transcripts are Input
-
-EVOLUTION processes transcripts within its scope. Relative paths only.
+1. **COVERAGE** — What exists? What's compliant?
+2. **ROADMAP** — What's next? What's blocked?
 
 ```
-./TRANSCRIPTS/          # Local to repo
-~/.canonic/TRANSCRIPTS/ # User scope
-```
-
-### 3. Continuous Rebuild
-
-EVOLUTION rebuilds itself from what it reads. No static state. The app IS its execution.
-
-```
-STATE = f(LEDGER, TRANSCRIPTS)
-OUTPUT = regenerated on each walk
-```
-
-### 4. Pattern Extraction
-
-EVOLUTION extracts patterns from evidence:
-
-```
-PATTERNS:
-├── EMERGENCE   (what appeared)
-├── PERSISTENCE (what stayed)
-├── DRIFT       (what changed)
-├── VIOLATION   (what broke)
-└── FORMALIZATION (what became LANGUAGE)
-```
-
-### 5. Scope Relative
-
-EVOLUTION walks within its scope. Each repo has its own evolution.
-
-```
-canonic-apps/EVOLUTION/     → walks canonic-apps
-canonic-foundation/EVOLUTION/ → walks canonic-foundation
-~/.canonic/EVOLUTION/       → walks user scope
-```
-
----
-
-## Data Model
-
-```
-Walk:
-  timestamp: ISO-8601
-  scope: repo | user | org
-  commits_processed: number
-  patterns_extracted: Pattern[]
-
-Pattern:
-  type: emergence | persistence | drift | violation | formalization
-  evidence: commit[]
-  confidence: 0-4
-  timestamp: ISO-8601
-
-Transcript:
-  path: relative
-  sessions: Session[]
-
-Session:
-  id: uuid
-  events: Event[]
-  outcome: success | violation | deferral
+LEDGER (git log)
+    ↓
+EVOLUTION (walker)
+    ↓
+├── COVERAGE.md (current state)
+└── ROADMAP.md (future state)
 ```
 
 ---
 
 ## Outputs
 
-EVOLUTION generates on each walk:
+```
+COVERAGE.md:
+  - Files present
+  - Compliance status (CANON, VOCAB, README)
+  - Validator results
+  - Evidence links
+
+ROADMAP.md:
+  - Pending items
+  - Blocked items
+  - Next milestones
+  - Dependencies
+
+EVOLUTION.md:
+  - Timeline visualization
+  - Commit history graph
+  - Compliance over time
+  - Drift patterns
+```
+
+---
+
+## Visualization
+
+EVOLUTION renders the timeline:
 
 ```
-./EVOLUTION.md      # Current state narrative
-./TIMELINE.md       # Chronological events
-./PATTERNS.md       # Extracted patterns
-./DRIFT.md          # Changes over time
+TIMELINE (commits)
+    ↓
+EVOLUTION.md (visualization)
+    ↓
+├── ASCII timeline
+├── Compliance graph
+└── Drift markers
+
+Example:
+  2026-01-10 ████████░░ GENESIS
+  2026-01-14 █████████░ AXIOMS
+  2026-01-19 ██████████ LANGUAGE
+             ↑ drift    ↑ stable
 ```
 
 ---
@@ -119,68 +91,46 @@ EVOLUTION generates on each walk:
 ## Walk Algorithm
 
 ```python
-def walk(scope):
-    commits = git_log(scope)
-    transcripts = find_transcripts(scope)
+def evolve(scope):
+    ledger = git_log(scope)
+    files = list_files(scope)
 
-    for commit in commits:
-        evidence = extract_evidence(commit)
-        patterns = analyze(evidence)
-        yield patterns
+    coverage = assess_coverage(files)
+    roadmap = compute_roadmap(coverage, ledger)
 
-    for transcript in transcripts:
-        sessions = parse_sessions(transcript)
-        for session in sessions:
-            patterns = extract_patterns(session)
-            yield patterns
-
-def rebuild(patterns):
-    emergence = filter(patterns, type='emergence')
-    persistence = filter(patterns, type='persistence')
-    drift = filter(patterns, type='drift')
-
-    write('EVOLUTION.md', narrative(patterns))
-    write('TIMELINE.md', chronological(patterns))
-    write('PATTERNS.md', categorized(patterns))
-    write('DRIFT.md', drift_analysis(drift))
+    write('COVERAGE.md', coverage)
+    write('ROADMAP.md', roadmap)
 ```
 
 ---
 
 ## Triggers
 
-EVOLUTION walks on:
+```
+ON COMMIT  → walk
+ON SCHEDULE → walk (daily)
+ON MANUAL  → walk
+```
+
+---
+
+## Scope
+
+Each repo/scope has its own EVOLUTION:
 
 ```
-1. COMMIT    → new evidence, walk
-2. SCHEDULE  → periodic walk (daily)
-3. MANUAL    → user-triggered walk
+./COVERAGE.md   # This repo's coverage
+./ROADMAP.md    # This repo's roadmap
 ```
 
 ---
 
 ## Constraints
 
-- MUST NOT modify LEDGER (read-only)
-- MUST NOT read outside scope
-- MUST regenerate outputs on each walk
-- MUST link all claims to evidence
+- MUST NOT modify LEDGER
+- MUST regenerate COVERAGE + ROADMAP on each walk
+- MUST link claims to evidence (commits)
 
 ---
 
-## Integration
-
-```
-EVOLUTION → LANGUAGE:
-  Formalized patterns become LANGUAGE updates
-
-EVOLUTION → VALIDATORS:
-  Patterns inform validator rules
-
-EVOLUTION → CHAT:
-  CHAT queries EVOLUTION for context
-```
-
----
-
-*The LEDGER is the truth. EVOLUTION reads it.*
+*Walk the LEDGER. Update COVERAGE. Update ROADMAP.*
