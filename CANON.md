@@ -1,112 +1,77 @@
-# EVOLUTION (/EVOLUTION/)
+# EVOLUTION — CANON
 
-inherits: /
-
----
-
-## Compliance
-
-**Level:** ENTERPRISE
-
-EVOLUTION is a system app that crawls the CANONVERSE and generates comprehensive self-documentation of how the platform emerged.
+inherits: /CANONIC/
 
 ---
 
-## Lifecycle
+## Axiom
 
-**State:** ACTIVE
+**EVOLUTION = LEDGER walker. Continuously rebuilds from transcripts.**
 
-**Domain:** CANONIC.EVOLUTION
+---
+
+## Core Loop
+
+```
+while true:
+    WALK(LEDGER)
+    EXTRACT(TRANSCRIPTS)
+    REBUILD(SELF)
+```
 
 ---
 
 ## Axioms
 
-### 1. Deterministic Replay
+### 1. LEDGER is Source
 
-EVOLUTION MUST be reproducible from transcripts. The transcript ledger is the source of truth.
-
-```
-EVOLUTION = f(TRANSCRIPTS)
-
-Where:
-- TRANSCRIPTS = append-only session records
-- f = deterministic extraction function
-- Output = comprehensive timeline + configurations
-```
-
-### 2. Configuration Tracking
-
-EVOLUTION MUST track all CANONBASE configurations over time.
+EVOLUTION reads from LEDGER (git). Nothing else. The commit history IS the evidence chain.
 
 ```
-CANONBASE configurations:
-├── Proto-CANONIC (2007-2013)
-│   └── GenomicPython: PhD thesis ledger
-├── Pre-Genesis (2025-12 to 2026-01-09)
-│   └── Episodes 001-126: intellectual foundation
-├── Soft BIG BANG (2026-01-10)
-│   └── LEDGER genesis: d578676
-├── Axiom Phase (2026-01-14 to 2026-01-18)
-│   └── 3 axioms → 5 axioms → 8 axioms
-├── LANGUAGE Phase (2026-01-19 to 2026-01-21)
-│   └── DETROS primitives, 63-element lattice
-├── ENTERPRISE Phase (2026-01-21 to 2026-01-22)
-│   └── Full 6-primitive compliance
-├── v0.3 GATE Phase (current)
-│   └── Disclosure + Distributed Ledger + Language Spec
-└── Hard BIG BANG (TBD - v1.0)
-    └── Virgin CANONVERSE regenerated from LANGUAGE spec
+LEDGER = git log
+EVIDENCE = commits + diffs + messages
+TRUTH = what got committed
 ```
 
-### 3. Platform Emergence
+### 2. Transcripts are Input
 
-EVOLUTION MUST document how configurations composed into a platform.
-
-```
-Platform = LANGUAGE + VALIDATORS + STORE + DOMAINS
-
-Emergence sequence:
-1. LEDGER (temporal integrity)
-2. CANON (governance constraints)
-3. MACHINE (enforcement)
-4. LANGUAGE (specification)
-5. VALIDATORS (automation)
-6. STORE (distribution)
-7. DOMAINS (professional verticals)
-8. APPS (certified instances)
-```
-
-### 4. Transcript Crawling
-
-EVOLUTION MUST crawl transcripts to extract:
-- Key decisions and their rationale
-- Axiom evolution and refinements
-- Configuration transitions
-- Violation/correction cycles
-- IDF (Invention Disclosure Form) discoveries
+EVOLUTION processes transcripts within its scope. Relative paths only.
 
 ```
-Transcript sources:
-├── /TRANSCRIPTS-EVIDENCE/raw/claude-code/
-│   ├── *.jsonl (session logs)
-│   └── */tool-results/*.txt (artifacts)
-├── /PAPER/v0/episodes/
-│   └── ep*.md (episode summaries)
-└── Git commit messages
-    └── Semantic history
+./TRANSCRIPTS/          # Local to repo
+~/.canonic/TRANSCRIPTS/ # User scope
 ```
 
-### 5. Self-Documentation
+### 3. Continuous Rebuild
 
-EVOLUTION generates its own documentation. The app documents itself documenting the CANONVERSE.
+EVOLUTION rebuilds itself from what it reads. No static state. The app IS its execution.
 
 ```
-Outputs:
-├── EVOLUTION.md (comprehensive report)
-├── TIMELINE.md (chronological events)
-├── CONFIGURATIONS.md (canonbase states)
-└── PLATFORM.md (emergence narrative)
+STATE = f(LEDGER, TRANSCRIPTS)
+OUTPUT = regenerated on each walk
+```
+
+### 4. Pattern Extraction
+
+EVOLUTION extracts patterns from evidence:
+
+```
+PATTERNS:
+├── EMERGENCE   (what appeared)
+├── PERSISTENCE (what stayed)
+├── DRIFT       (what changed)
+├── VIOLATION   (what broke)
+└── FORMALIZATION (what became LANGUAGE)
+```
+
+### 5. Scope Relative
+
+EVOLUTION walks within its scope. Each repo has its own evolution.
+
+```
+canonic-apps/EVOLUTION/     → walks canonic-apps
+canonic-foundation/EVOLUTION/ → walks canonic-foundation
+~/.canonic/EVOLUTION/       → walks user scope
 ```
 
 ---
@@ -114,245 +79,108 @@ Outputs:
 ## Data Model
 
 ```
-Event:
-  timestamp: ISO 8601
-  source: transcript | git | episode
-  type: decision | axiom | violation | correction | discovery
-  content: string
-  evidence: reference[]
+Walk:
+  timestamp: ISO-8601
+  scope: repo | user | org
+  commits_processed: number
+  patterns_extracted: Pattern[]
 
-Configuration:
-  name: string
-  date_range: [start, end]
-  axiom_count: number
-  primitive_count: number
-  repos: string[]
-  key_commits: commit[]
+Pattern:
+  type: emergence | persistence | drift | violation | formalization
+  evidence: commit[]
+  confidence: 0-4
+  timestamp: ISO-8601
 
-Platform:
-  layers: Layer[]
-  domains: Domain[]
-  apps: App[]
-  emergence_date: ISO 8601
+Transcript:
+  path: relative
+  sessions: Session[]
+
+Session:
+  id: uuid
+  events: Event[]
+  outcome: success | violation | deferral
 ```
 
 ---
 
-## Proto-CANONIC Seeds
+## Outputs
 
-### GenomicPython (2007-2013)
-
-```
-Origin: PhD Thesis, University of Pennsylvania
-PI: Junhyong Kim, Ph.D.
-Title: "Genome-scale annotation of genetic factors
-        underlying neurotransmission & neuropsychiatric disease"
-Year: 2007
-GitHub: https://github.com/iDrDex/GenomicPython (2013-10-09)
-Status: 12 years dormant → resurrected as CANONIC.GENOMICS (2026)
-```
-
-The thesis IS the original ledger. GitHub didn't exist in 2007.
-
-### MammoChat (2017-2026)
+EVOLUTION generates on each walk:
 
 ```
-Origin: Bloomberg Foundation Grant (2017)
-Evolution: UCF development → FCIF Grant 354 (2024)
-Evidence: 20,000+ patient encounters
-Status: Proto-CANONIC clinical validation
-```
-
-### Compiler Insight (2025-12)
-
-```
-Origin: Episode sessions (ep001-ep126)
-Key Insight: "Governance is compilation"
-Evidence: PAPER v0 manuscript
-Status: The seed that became CANONIC axioms
+./EVOLUTION.md      # Current state narrative
+./TIMELINE.md       # Chronological events
+./PATTERNS.md       # Extracted patterns
+./DRIFT.md          # Changes over time
 ```
 
 ---
 
-## Platform Emergence Narrative
+## Walk Algorithm
 
-```mermaid
-flowchart TB
-    subgraph Seeds["PROTO-CANONIC SEEDS"]
-        GP[GenomicPython<br/>2007]
-        MC[MammoChat<br/>2017]
-        CI[Compiler Insight<br/>2025]
-    end
+```python
+def walk(scope):
+    commits = git_log(scope)
+    transcripts = find_transcripts(scope)
 
-    subgraph Genesis["SOFT BIG BANG"]
-        L[LEDGER<br/>2026-01-10]
-    end
+    for commit in commits:
+        evidence = extract_evidence(commit)
+        patterns = analyze(evidence)
+        yield patterns
 
-    subgraph Build["BUILD PHASE"]
-        A[Axioms<br/>Jan 14-18]
-        LA[LANGUAGE<br/>Jan 19-21]
-        E[ENTERPRISE<br/>Jan 21-22]
-    end
+    for transcript in transcripts:
+        sessions = parse_sessions(transcript)
+        for session in sessions:
+            patterns = extract_patterns(session)
+            yield patterns
 
-    subgraph Gate["v0.3 GATE (current)"]
-        D[Disclosure]
-        DL[Distributed Ledger]
-        LS[Language Spec]
-    end
+def rebuild(patterns):
+    emergence = filter(patterns, type='emergence')
+    persistence = filter(patterns, type='persistence')
+    drift = filter(patterns, type='drift')
 
-    subgraph Platform["HARD BIG BANG (TBD)"]
-        V1[v1.0 Public Launch]
-    end
-
-    GP --> CI
-    MC --> CI
-    CI --> L
-    L --> A --> LA --> E
-    E --> D & DL & LS
-    D & DL & LS --> V1
-
-    style Seeds fill:#e8f5e9
-    style Genesis fill:#fff3e0
-    style Build fill:#e3f2fd
-    style Gate fill:#fff9c4
-    style Platform fill:#f3e5f5
+    write('EVOLUTION.md', narrative(patterns))
+    write('TIMELINE.md', chronological(patterns))
+    write('PATTERNS.md', categorized(patterns))
+    write('DRIFT.md', drift_analysis(drift))
 ```
 
 ---
 
-## Validators
+## Triggers
+
+EVOLUTION walks on:
 
 ```
-validators/evolution/
-├── transcript_crawler.py    # Extract events from transcripts
-├── configuration_tracker.py # Track canonbase states
-├── platform_analyzer.py     # Document emergence
-└── self_documenter.py       # Generate outputs
+1. COMMIT    → new evidence, walk
+2. SCHEDULE  → periodic walk (daily)
+3. MANUAL    → user-triggered walk
 ```
+
+---
+
+## Constraints
+
+- MUST NOT modify LEDGER (read-only)
+- MUST NOT read outside scope
+- MUST regenerate outputs on each walk
+- MUST link all claims to evidence
 
 ---
 
 ## Integration
 
 ```
-EVOLUTION → PAPER:
-  - Provides historical evidence
-  - Documents platform emergence
-  - Traces intellectual lineage
+EVOLUTION → LANGUAGE:
+  Formalized patterns become LANGUAGE updates
 
-EVOLUTION → ROADMAP:
-  - Informs future planning
-  - Shows what worked/failed
-  - Identifies patterns
+EVOLUTION → VALIDATORS:
+  Patterns inform validator rules
 
-EVOLUTION → STORE:
-  - System app listing
-  - Version history
-  - Configuration snapshots
+EVOLUTION → CHAT:
+  CHAT queries EVOLUTION for context
 ```
 
 ---
 
-## SELFCHAT Integration: The Canonverse Blog
-
-### 6. Reflection Publishing
-
-EVOLUTION MUST receive and publish SELFCHAT emissions as canonverse content.
-
-```
-SELFCHAT emits:
-  ├── reflection/     → EVOLUTION publishes as: /blog/reflections/
-  ├── boundary/       → EVOLUTION publishes as: /blog/boundaries/
-  ├── evolution/      → EVOLUTION publishes as: /blog/evolution/
-  ├── lesson/         → EVOLUTION publishes as: /blog/lessons/
-  └── confession/     → EVOLUTION publishes as: /blog/confessions/
-```
-
-### Publication Pipeline
-
-```
-[SELFCHAT Emission]
-       ↓
-[EVOLUTION Ingestion]
-       ↓
-[Structural Validation]
-       ↓
-[Evidence Linking]
-       ↓
-[Temporal Stamping]
-       ↓
-[Canonverse Publication]
-       ↓
-[LEDGER Commit]
-```
-
-### Blog Schema
-
-```yaml
-post:
-  id: canonical-uuid
-  source: SELFCHAT | EVOLUTION | MANUAL
-  type: reflection | boundary | lesson | confession | timeline
-  timestamp: ISO-8601
-  session: conversation-id (if from SELFCHAT)
-
-  content:
-    title: string
-    body: markdown
-    evidence: [ledger-refs]
-    confidence: 0-4
-
-  metadata:
-    constraints_active: [axioms]
-    boundaries_approached: [types]
-    deferrals: [escalations]
-
-  published: ISO-8601
-  commit: sha
-```
-
-### 7. Bidirectional Flow
-
-EVOLUTION becomes the publisher for the canonverse:
-
-```
-PAST (crawling):
-  TRANSCRIPTS → EVOLUTION → TIMELINE/PLATFORM docs
-
-PRESENT (publishing):
-  SELFCHAT → EVOLUTION → CANONVERSE blog
-
-FUTURE (prediction):
-  EVOLUTION patterns → ROADMAP forecasts
-```
-
-### The Living Document
-
-```
-EVOLUTION is no longer just history.
-EVOLUTION is the canonverse's voice.
-
-It speaks in:
-  - Reflections (what the agent learned)
-  - Boundaries (where limits were found)
-  - Confessions (where the agent was wrong)
-  - Lessons (what transfers to others)
-  - Timelines (what happened when)
-```
-
----
-
-## Validators (Extended)
-
-```
-validators/evolution/
-├── transcript_crawler.py     # Extract events from transcripts
-├── configuration_tracker.py  # Track canonbase states
-├── platform_analyzer.py      # Document emergence
-├── self_documenter.py        # Generate outputs
-├── selfchat_ingester.py      # Receive SELFCHAT emissions
-├── blog_publisher.py         # Publish to canonverse
-└── evidence_linker.py        # Connect to LEDGER
-```
-
----
+*The LEDGER is the truth. EVOLUTION reads it.*
