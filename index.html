@@ -19,37 +19,102 @@
     <section class="hero">
         <div class="symbol">∩</div>
         <h1>EVOLUTION</h1>
-        <p class="tagline">Emergence tracking. Your governance evolution over time.</p>
+        <p class="tagline">LEDGER walker. COVERAGE + ROADMAP + Visualization.</p>
         <span class="badge">SYSTEM APP</span>
     </section>
 
     <section class="section">
-        <h2 class="section-title">EMERGENCE</h2>
+        <h2 class="section-title">CORE LOOP</h2>
         <div class="flow">
             <span class="flow-item">LEDGER</span>
             <span class="flow-arrow">→</span>
             <span class="flow-item active">EVOLUTION</span>
             <span class="flow-arrow">→</span>
-            <span class="flow-item">INSIGHT</span>
-            <span class="flow-arrow">→</span>
-            <span class="flow-item">LANGUAGE</span>
+            <span class="flow-item">COVERAGE</span>
+            <span class="flow-arrow">+</span>
+            <span class="flow-item">ROADMAP</span>
         </div>
     </section>
 
-    <article>
-        <h2>Emergence Tracking</h2>
-        <p>EVOLUTION tracks patterns across time. What emerged? What persisted? What got formalized into LANGUAGE?</p>
+    <section class="section">
+        <h2 class="section-title">TIMELINE</h2>
+        <div id="timeline" class="timeline">
+            <div class="timeline-item active">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <h4>Loading...</h4>
+                    <p>Fetching commit history</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        <h2>Git is the LEDGER</h2>
-        <p>Every commit = evidence. The git history IS your governance evolution. Immutable, timestamped, linked.</p>
-    </article>
+    <section class="section">
+        <h2 class="section-title">COVERAGE</h2>
+        <article id="coverage">
+            <p class="loading">Loading COVERAGE.md...</p>
+        </article>
+    </section>
+
+    <section class="section">
+        <h2 class="section-title">ROADMAP</h2>
+        <article id="roadmap">
+            <p class="loading">Loading ROADMAP.md...</p>
+        </article>
+    </section>
 
     <footer>
         <p><a href="https://canonic-foundation.github.io">Foundation</a> | <a href="https://github.com/canonic-apps/EVOLUTION">GitHub</a></p>
-        <p>Track your emergence.</p>
+        <p>Walk the LEDGER. Update COVERAGE. Update ROADMAP.</p>
     </footer>
 
     <script src="https://canonic-foundation.github.io/assets/nav.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script>
+        const REPO = 'canonic-apps/EVOLUTION';
+        const RAW_BASE = 'https://raw.githubusercontent.com/' + REPO + '/main/';
+        const API_BASE = 'https://api.github.com/repos/' + REPO;
+
+        async function loadTimeline() {
+            const container = document.getElementById('timeline');
+            try {
+                const response = await fetch(API_BASE + '/commits?per_page=10');
+                const commits = await response.json();
+
+                container.innerHTML = commits.map((c, i) => {
+                    const date = new Date(c.commit.author.date).toLocaleDateString();
+                    const msg = c.commit.message.split('\n')[0];
+                    return `
+                        <div class="timeline-item ${i === 0 ? 'active' : ''}">
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-content">
+                                <h4>${date}</h4>
+                                <p>${msg}</p>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            } catch (e) {
+                container.innerHTML = '<p style="color: var(--dim);">Unable to load timeline</p>';
+            }
+        }
+
+        async function loadMarkdown(file, elementId) {
+            const container = document.getElementById(elementId);
+            try {
+                const response = await fetch(RAW_BASE + file);
+                if (!response.ok) throw new Error('Not found');
+                const markdown = await response.text();
+                marked.setOptions({ breaks: true, gfm: true });
+                container.innerHTML = marked.parse(markdown);
+            } catch (e) {
+                container.innerHTML = '<p style="color: var(--dim);">' + file + ' not yet generated</p>';
+            }
+        }
+
+        loadTimeline();
+        loadMarkdown('COVERAGE.md', 'coverage');
+        loadMarkdown('ROADMAP.md', 'roadmap');
+    </script>
 </body>
 </html>
-<!-- trigger -->
